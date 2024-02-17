@@ -82,19 +82,25 @@ if __name__ == "__main__":
         '''
         Function when user clicks a button
         '''
-        text_input = textbox.get('0.0', 'end')
-        text_input = text_input.strip()
-        text_input = [text_input]
-        df = split_based_on_windows(text_input, window_size=WINDOW_SIZE)
-        X_data = ohe_for_nn(df['sequence'])
-        predictions = model.predict(X_data)
-        result = convert_pred_to_str(predictions)
-        text_output = "".join(result)
-        create_plot(text_input[0], text_output)
-        my_image.configure(light_image=Image.open("images/prediction.png"), dark_image=Image.open("images/prediction.png"))
-        output_label.configure(text=text_output)
+        try:
+            error_label.configure(text="")
+            text_input = textbox.get('0.0', 'end')
+            text_input = text_input.strip()
+            text_input = [text_input]
+            df = split_based_on_windows(text_input, window_size=WINDOW_SIZE)
+            X_data = ohe_for_nn(df['sequence'])
+            predictions = model.predict(X_data)
+            result = convert_pred_to_str(predictions)
+            text_output = "".join(result)
+            create_plot(text_input[0], text_output)
+            my_image.configure(light_image=Image.open("images/prediction.png"), dark_image=Image.open("images/prediction.png"))
+            output_label.configure(text=text_output)
+        except ValueError:
+            error_label.configure(text="There was an error in predicting the secondary structure. Please try again.")
 
     button = customtkinter.CTkButton(master=frame_col0, text="Predict", command=button_function)
     button.grid(row=2, column=0, sticky="nsew")
+    error_label = customtkinter.CTkLabel(frame_text, text="", font=(None, 16))
+    error_label.grid(row=3, column=0, padx=20)
 
     app.mainloop()
