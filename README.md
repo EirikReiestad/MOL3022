@@ -13,3 +13,6 @@ Install the required packages by:
  
 Run the Python file:
 > python main.py
+
+### GUI
+Enter the protein sequence in the input field and click on the "Predict" button. The predicted secondary structure will be displayed in the output field and as a graph.
