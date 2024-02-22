@@ -7,6 +7,14 @@ This repository includes a Python based software to predict the secondary struct
 
 It uses dataset from: Sejnowski,Terry and Qian,Ning. Molecular Biology (Protein Secondary Structure). UCI Machine Learning Repository. [doi.org](https://doi.org/10.24432/C5SP4F).
 
+## Requirements
+The software was tested successfully with the following versions:
+version 3.11.2
+
+There are no platform-specific requirements.
+
+There are no specific hardware requirements.
+
 ## How to use
 
 Install the required packages by:
