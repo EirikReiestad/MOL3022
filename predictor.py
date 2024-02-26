@@ -5,6 +5,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import Dense, LSTM, TimeDistributed, Embedding, Bidirectional
 from tensorflow.keras import layers
+import matplotlib.pyplot as plt
 
 tf.keras.utils.set_random_seed(812)
 
@@ -50,15 +51,15 @@ class PSSPredictor:
 
     def train(self, X_train, y_train, X_val, y_val, epochs=100, batch_size=32, validation_split=0.2):
         if not os.path.exists("model.keras"):
-            self.model.fit(X_train, y_train, epochs=epochs,
-                           batch_size=batch_size, validation_split=validation_split)
+            history = self.model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_split=validation_split)
             self.model.save("model.keras")
             loss, accuracy, mae, q3 = self.model.evaluate(X_val, y_val)
-            print(
-                f'Validation Loss: {loss}, Accuracy: {accuracy}, MAE: {mae}, Q3: {q3}')
+            print(f'Validation Loss: {loss}, Accuracy: {accuracy}, MAE: {mae}, Q3: {q3}')
+            return history
         else:
             self.model = self.load_model('model.keras')
-
+        return None
+    
     def predict(self, X):
         return self.model.predict(X)
 

@@ -2,6 +2,7 @@ import customtkinter
 from util import read_protein_file, split_based_on_windows, ohe_for_nn, convert_pred_to_str, create_plot
 from predictor import PSSPredictor
 from PIL import Image
+import matplotlib.pyplot as plt
 
 
 if __name__ == "__main__":
@@ -18,6 +19,7 @@ if __name__ == "__main__":
 
     train_df = split_based_on_windows(train_seq, train_str, WINDOW_SIZE)
     test_df = split_based_on_windows(test_seq, test_str, WINDOW_SIZE)
+    print(len(train_df), len(test_df))
 
     X_train, y_train = ohe_for_nn(train_df['sequence'], train_df['string'])
     X_test, y_test = ohe_for_nn(test_df['sequence'], test_df['string'])
@@ -26,7 +28,7 @@ if __name__ == "__main__":
     model = PSSPredictor(WINDOW_SIZE)
 
     # TODO: should we pretrain the model?
-    model.train(X_train, y_train, X_test, y_test, epochs=100)
+    history = model.train(X_train, y_train, X_test, y_test, epochs=100)
 
     ####### CREATE GUI #######
 
@@ -114,5 +116,17 @@ if __name__ == "__main__":
     button.grid(row=2, column=0, sticky="nsew")
     error_label = customtkinter.CTkLabel(frame_text, text="", font=(None, 16))
     error_label.grid(row=3, column=0, padx=20)
+
+    # Save training accuracy evolution as an image
+    # Placed below tkinter image or else it crashes
+    if history:
+        plt.figure()
+        plt.plot(history.history['q3_score'])
+        plt.plot(history.history['val_q3_score'])
+        plt.title('q3 model accuracy')
+        plt.ylabel('q3 score accuracy')
+        plt.xlabel('epoch')
+        plt.legend(['train', 'val'], loc='upper left')
+        plt.savefig('./images/train_accuracy.png')
 
     app.mainloop()
