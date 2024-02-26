@@ -121,10 +121,10 @@ if __name__ == "__main__":
     # Placed below tkinter image or else it crashes
     if history:
         plt.figure()
-        plt.plot(history.history['accuracy'])
-        plt.plot(history.history['val_accuracy'])
-        plt.title('model accuracy')
-        plt.ylabel('accuracy')
+        plt.plot(history.history['q3_score'])
+        plt.plot(history.history['val_q3_score'])
+        plt.title('q3 model accuracy')
+        plt.ylabel('q3 score accuracy')
         plt.xlabel('epoch')
         plt.legend(['train', 'val'], loc='upper left')
         plt.savefig('./images/train_accuracy.png')
