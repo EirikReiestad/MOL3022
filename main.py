@@ -120,6 +120,10 @@ if __name__ == "__main__":
     # Save training accuracy evolution as an image
     # Placed below tkinter image or else it crashes
     if history:
+        from .model_plot import create_model_plot
+        create_model_plot(model.model, filename="images/model.png", show=False)
+
+    if history:
         plt.figure()
         plt.plot(history.history['q3_score'])
         plt.plot(history.history['val_q3_score'])
