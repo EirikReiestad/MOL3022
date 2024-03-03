@@ -10,6 +10,9 @@ It uses dataset from: Sejnowski,Terry and Qian,Ning. Molecular Biology (Protein 
 ### Model architecture
 ![Model architecture](images/model.png "Model architecture")
 
+### Results
+
+
 ## Requirements
 The software was tested successfully with the following versions:
 Python version >= 3.9.0
