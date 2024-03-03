@@ -21,4 +21,5 @@ def create_model_plot(model, filename="model.png", show=True):
 if __name__ == "__main__":
     WINDOW_SIZE = 17  # Doesn't matter for this example
     predictor = PSSPredictor(WINDOW_SIZE)
+    print("Creating model plot...")
     create_model_plot(predictor.model)
