@@ -1,12 +1,10 @@
 import os
 import pandas as pd
-import numpy as np
 import tensorflow as tf
-from tensorflow.keras.models import Sequential, load_model
-from tensorflow.keras.layers import Dense, LSTM, TimeDistributed, Embedding, Bidirectional
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, LSTM, TimeDistributed
 from tensorflow.keras import layers
 from tensorflow import keras
-import matplotlib.pyplot as plt
 
 tf.keras.utils.set_random_seed(812)
 
@@ -24,21 +22,23 @@ class PSSPredictor:
 
     def create_model(self):
         model = Sequential(
-        [
-            LSTM(
-                32,
-                input_shape=(self.window_size, len(self.protein_letters)),
-                return_sequences=True,
-            ),
-            layers.BatchNormalization(),
-            layers.Dropout(0.4),
-            Dense(96, activation="tanh"),
-            TimeDistributed(Dense(len(self.secondary_letters), activation="softmax")),
-        ]
+            [
+                LSTM(
+                    32,
+                    input_shape=(self.window_size, len(self.protein_letters)),
+                    return_sequences=True,
+                ),
+                layers.BatchNormalization(),
+                layers.Dropout(0.4),
+                Dense(96, activation="tanh"),
+                TimeDistributed(
+                    Dense(len(self.secondary_letters), activation="softmax")),
+            ]
         )
 
         model.compile(
-            optimizer=keras.optimizers.Adam(learning_rate=0.051000000000000004),
+            optimizer=keras.optimizers.Adam(
+                learning_rate=0.051000000000000004),
             loss="categorical_crossentropy",
             metrics=["accuracy", "mae", q3_score],
         )
@@ -47,15 +47,17 @@ class PSSPredictor:
 
     def train(self, X_train, y_train, X_val, y_val, epochs=100, batch_size=32, validation_split=0.2):
         if not os.path.exists("model.keras"):
-            history = self.model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_split=validation_split)
+            history = self.model.fit(X_train, y_train, epochs=epochs,
+                                     batch_size=batch_size, validation_split=validation_split)
             self.model.save("model.keras")
             loss, accuracy, mae, q3 = self.model.evaluate(X_val, y_val)
-            print(f'Validation Loss: {loss}, Accuracy: {accuracy}, MAE: {mae}, Q3: {q3}')
+            print(
+                f'Validation Loss: {loss}, Accuracy: {accuracy}, MAE: {mae}, Q3: {q3}')
             return history
         else:
             self.model = self.load_model('model.keras')
         return None
-    
+
     def predict(self, X):
         return self.model.predict(X)
 
