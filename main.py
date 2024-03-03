@@ -123,7 +123,7 @@ if __name__ == "__main__":
         plt.figure()
         plt.plot(history.history['q3_score'])
         plt.plot(history.history['val_q3_score'])
-        plt.plot([accuracy]*len(history.history['q3_score']), 'g--')
+        plt.plot([q3]*len(history.history['q3_score']), 'g--')
         plt.title('q3 model accuracy')
         plt.ylabel('q3 score accuracy')
         plt.xlabel('epoch')
