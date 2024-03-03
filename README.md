@@ -14,8 +14,7 @@ It uses dataset from: Sejnowski,Terry and Qian,Ning. Molecular Biology (Protein 
 
 
 ## Requirements
-The software was tested successfully with the following versions:
-Python version >= 3.9.0
+The software was tested successfully with Python version >= 3.9.0.
 
 There are no platform-specific requirements.
 
