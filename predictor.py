@@ -46,23 +46,23 @@ class PSSPredictor:
         return model
 
     def train(self, X_train, y_train, X_val, y_val, epochs=100, batch_size=32, validation_split=0.2):
-        if not os.path.exists("model.keras"):
+        if not os.path.exists("model.h5"):
             history = self.model.fit(X_train, y_train, epochs=epochs,
                                      batch_size=batch_size, validation_split=validation_split)
-            self.model.save("model.keras")
+            self.model.save("model.h5")
             loss, accuracy, mae, q3 = self.model.evaluate(X_val, y_val)
             print(
                 f'Validation Loss: {loss}, Accuracy: {accuracy}, MAE: {mae}, Q3: {q3}')
             return history, loss, accuracy, mae, q3
         else:
-            self.model = self.load_model('model.keras')
+            self.model = self.load_model('model.h5')
         return None, None, None, None, None
 
     def predict(self, X):
         return self.model.predict(X)
 
     @staticmethod
-    def load_model(filepath='model.keras'):
+    def load_model(filepath='model.h5'):
         # Load the model from the file
         loaded_model = tf.keras.models.load_model(
             filepath, custom_objects={"q3_score": q3_score})
