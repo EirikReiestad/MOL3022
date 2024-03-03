@@ -11,6 +11,10 @@ It uses dataset from: Sejnowski,Terry and Qian,Ning. Molecular Biology (Protein 
 ![Model architecture](images/model.png "Model architecture")
 
 ### Results
+__Note that the results may vary slightly between computers as there is stochasticity involved.__
+loss: 0.8880 - accuracy: 0.5954 - mae: 0.3597 - q3_score: 0.5954
+
+![Results](images/train_accuracy.png "Train accuracy")
 
 
 ## Requirements
