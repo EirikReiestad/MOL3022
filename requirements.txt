@@ -16,8 +16,12 @@ google-pasta==0.2.0
 grpcio==1.62.0
 h5py==3.10.0
 idna==3.6
+importlib-metadata==7.0.1
+importlib_resources==6.1.2
 keras==2.15.0
+keras-tuner==1.4.6
 kiwisolver==1.4.5
+kt-legacy==1.0.5
 libclang==16.0.6
 Markdown==3.5.2
 MarkupSafe==2.1.5
@@ -32,6 +36,7 @@ pillow==10.2.0
 protobuf==4.25.3
 pyasn1==0.5.1
 pyasn1-modules==0.3.0
+pydot==2.0.0
 pyparsing==3.1.1
 python-dateutil==2.9.0.post0
 pytz==2024.1
@@ -41,12 +46,14 @@ rsa==4.9
 six==1.16.0
 tensorboard==2.15.2
 tensorboard-data-server==0.7.2
-tensorflow==2.15.0.post1
+tensorflow==2.15.0
 tensorflow-estimator==2.15.0
-tensorflow-io-gcs-filesystem==0.36.0
+tensorflow-intel==2.15.0
+tensorflow-io-gcs-filesystem==0.31.0
 termcolor==2.4.0
 typing_extensions==4.10.0
 tzdata==2024.1
 urllib3==2.2.1
 Werkzeug==3.0.1
 wrapt==1.14.1
+zipp==3.17.0
