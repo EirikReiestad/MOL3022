@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     # TODO: should we pretrain the model?
     history, loss, accuracy, mae, q3 = model.train(
-        X_train, y_train, X_test, y_test, epochs=30)
+        X_train, y_train, X_test, y_test, epochs=12)
 
     ####### CREATE GUI #######
 
