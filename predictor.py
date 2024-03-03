@@ -24,7 +24,7 @@ class PSSPredictor:
         model = Sequential(
             [
                 LSTM(
-                    32,
+                    64,
                     input_shape=(self.window_size, len(self.protein_letters)),
                     return_sequences=True,
                 ),
