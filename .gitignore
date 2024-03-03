@@ -3,6 +3,7 @@ model.keras
 __pycache__/
 *.py[cod]
 *$py.class
+tuning
 
 # C extensions
 *.so

@@ -5,6 +5,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import Dense, LSTM, TimeDistributed, Embedding, Bidirectional
 from tensorflow.keras import layers
+from tensorflow import keras
 import matplotlib.pyplot as plt
 
 tf.keras.utils.set_random_seed(812)
@@ -22,30 +23,25 @@ class PSSPredictor:
         self.model = self.create_model()
 
     def create_model(self):
-        drop_out = 0.3
+        model = Sequential(
+        [
+            LSTM(
+                32,
+                input_shape=(self.window_size, len(self.protein_letters)),
+                return_sequences=True,
+            ),
+            layers.BatchNormalization(),
+            layers.Dropout(0.4),
+            Dense(96, activation="tanh"),
+            TimeDistributed(Dense(len(self.secondary_letters), activation="softmax")),
+        ]
+        )
 
-        model = Sequential([
-            LSTM(128, input_shape=(self.window_size, len(
-                self.protein_letters)), return_sequences=True),
-            layers.BatchNormalization(),
-            layers.Dropout(drop_out),
-            Dense(64, activation='tanh'),
-            layers.BatchNormalization(),
-            layers.Dropout(drop_out),
-            Dense(128, activation='linear'),
-            layers.BatchNormalization(),
-            layers.Dropout(drop_out),
-            Dense(64, activation='relu'),
-            layers.BatchNormalization(),
-            layers.Dropout(drop_out),
-            Dense(32, activation='relu'),
-            # Apply Dense layer to each time step
-            TimeDistributed(
-                Dense(len(self.secondary_letters), activation='softmax'))
-        ])
-
-        model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=[
-                      'accuracy', 'mae', q3_score])
+        model.compile(
+            optimizer=keras.optimizers.Adam(learning_rate=0.051000000000000004),
+            loss="categorical_crossentropy",
+            metrics=["accuracy", "mae", q3_score],
+        )
 
         return model
 

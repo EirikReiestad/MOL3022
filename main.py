@@ -19,7 +19,6 @@ if __name__ == "__main__":
 
     train_df = split_based_on_windows(train_seq, train_str, WINDOW_SIZE)
     test_df = split_based_on_windows(test_seq, test_str, WINDOW_SIZE)
-    print(len(train_df), len(test_df))
 
     X_train, y_train = ohe_for_nn(train_df['sequence'], train_df['string'])
     X_test, y_test = ohe_for_nn(test_df['sequence'], test_df['string'])
@@ -28,7 +27,7 @@ if __name__ == "__main__":
     model = PSSPredictor(WINDOW_SIZE)
 
     # TODO: should we pretrain the model?
-    history = model.train(X_train, y_train, X_test, y_test, epochs=100)
+    history = model.train(X_train, y_train, X_test, y_test, epochs=12)
 
     ####### CREATE GUI #######
 
