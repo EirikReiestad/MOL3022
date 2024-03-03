@@ -53,10 +53,10 @@ class PSSPredictor:
             loss, accuracy, mae, q3 = self.model.evaluate(X_val, y_val)
             print(
                 f'Validation Loss: {loss}, Accuracy: {accuracy}, MAE: {mae}, Q3: {q3}')
-            return history
+            return history, loss, accuracy, mae, q3
         else:
             self.model = self.load_model('model.keras')
-        return None
+        return None, None, None, None, None
 
     def predict(self, X):
         return self.model.predict(X)

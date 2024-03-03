@@ -27,7 +27,8 @@ if __name__ == "__main__":
     model = PSSPredictor(WINDOW_SIZE)
 
     # TODO: should we pretrain the model?
-    history = model.train(X_train, y_train, X_test, y_test, epochs=12)
+    history, loss, accuracy, mae, q3 = model.train(
+        X_train, y_train, X_test, y_test, epochs=12)
 
     ####### CREATE GUI #######
 
@@ -122,6 +123,7 @@ if __name__ == "__main__":
         plt.figure()
         plt.plot(history.history['q3_score'])
         plt.plot(history.history['val_q3_score'])
+        plt.plot([accuracy]*len(history.history['q3_score']), 'g--')
         plt.title('q3 model accuracy')
         plt.ylabel('q3 score accuracy')
         plt.xlabel('epoch')
