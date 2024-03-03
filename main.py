@@ -127,7 +127,7 @@ if __name__ == "__main__":
         plt.title('q3 model accuracy')
         plt.ylabel('q3 score accuracy')
         plt.xlabel('epoch')
-        plt.legend(['train', 'val', 'test'], loc='upper leftn', 'val'], loc = 'upper left')
+        plt.legend(['train', 'val', 'test'], loc='upper left')
         plt.savefig('./images/train_accuracy.png')
 
     app.mainloop()
