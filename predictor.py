@@ -6,12 +6,11 @@ from tensorflow.keras.layers import Dense, LSTM, TimeDistributed
 from tensorflow.keras import layers
 from tensorflow import keras
 
-tf.keras.utils.set_random_seed(812)
+tf.keras.utils.set_random_seed(812)  # sets seeds for base-python, numpy and tf
+tf.config.experimental.enable_op_determinism()          
+os.environ['TF_DETERMINISTIC_OPS'] = '1'          
 
 pd.set_option("future.no_silent_downcasting", True)
-
-# @tf.keras.utils.register_keras_serializable(package='Custom', name='PSSPredictor')
-
 
 class PSSPredictor:
     def __init__(
@@ -67,7 +66,7 @@ class PSSPredictor:
                 y_train,
                 epochs=epochs,
                 batch_size=batch_size,
-                validation_split=validation_split,
+                # validation_split=validation_split,
             )
             self.model.save("model.h5")
         else:

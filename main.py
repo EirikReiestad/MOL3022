@@ -8,8 +8,6 @@ import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
 
-    ####### Preprocess data and train the neural network #######
-
     # Preprocess data
     train_seq, train_str = read_protein_file(
         "data/protein-secondary-structure.train")
