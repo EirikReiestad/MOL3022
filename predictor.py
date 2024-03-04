@@ -7,10 +7,11 @@ from tensorflow.keras import layers
 from tensorflow import keras
 
 tf.keras.utils.set_random_seed(812)  # sets seeds for base-python, numpy and tf
-tf.config.experimental.enable_op_determinism()          
-os.environ['TF_DETERMINISTIC_OPS'] = '1'          
+tf.config.experimental.enable_op_determinism()
+os.environ['TF_DETERMINISTIC_OPS'] = '1'
 
 pd.set_option("future.no_silent_downcasting", True)
+
 
 class PSSPredictor:
     def __init__(
@@ -25,21 +26,27 @@ class PSSPredictor:
         self.model = self.create_model()
 
     def create_model(self):
-        model = Sequential(
-            [
-                LSTM(
-                    32,
-                    input_shape=(self.window_size, len(self.protein_letters)),
-                    return_sequences=True,
-                ),
-                layers.BatchNormalization(),
-                layers.Dropout(0.4),
-                Dense(96, activation="tanh"),
-                TimeDistributed(
-                    Dense(len(self.secondary_letters), activation="softmax")
-                ),
-            ]
-        )
+        drop_out = 0.3
+
+        model = Sequential([
+            LSTM(128, input_shape=(self.window_size, len(
+                self.protein_letters)), return_sequences=True),
+            layers.BatchNormalization(),
+            layers.Dropout(drop_out),
+            Dense(64, activation='tanh'),
+            layers.BatchNormalization(),
+            layers.Dropout(drop_out),
+            Dense(128, activation='linear'),
+            layers.BatchNormalization(),
+            layers.Dropout(drop_out),
+            Dense(64, activation='relu'),
+            layers.BatchNormalization(),
+            layers.Dropout(drop_out),
+            Dense(32, activation='relu'),
+            # Apply Dense layer to each time step
+            TimeDistributed(
+                Dense(len(self.secondary_letters), activation='softmax'))
+        ])
 
         model.compile(
             optimizer=keras.optimizers.Adam(
