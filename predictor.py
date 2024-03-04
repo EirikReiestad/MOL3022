@@ -43,7 +43,8 @@ class PSSPredictor:
         )
 
         model.compile(
-            optimizer=keras.optimizers.Adam(learning_rate=0.051000000000000004),
+            optimizer=keras.optimizers.Adam(
+                learning_rate=0.051000000000000004),
             loss="categorical_crossentropy",
             metrics=["accuracy", "mae", q3_score],
         )
@@ -73,7 +74,8 @@ class PSSPredictor:
             self.model = self.load_model("model.h5")
             history = None
         loss, accuracy, mae, q3 = self.model.evaluate(X_val, y_val)
-        print(f"Validation Loss: {loss}, Accuracy: {accuracy}, MAE: {mae}, Q3: {q3}")
+        print(
+            f"Validation Loss: {loss}, Accuracy: {accuracy}, MAE: {mae}, Q3: {q3}")
         return history, loss, accuracy, mae, q3
 
     def predict(self, X):

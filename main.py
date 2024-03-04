@@ -31,7 +31,7 @@ if __name__ == "__main__":
     history, loss, accuracy, mae, q3 = model.train(
         X_train, y_train, X_test, y_test, epochs=12)
 
-    ####### CREATE GUI #######
+   ####### CREATE GUI #######
 
     def on_closing():
         app.withdraw()
