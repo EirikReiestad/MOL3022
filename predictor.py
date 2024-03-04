@@ -7,8 +7,6 @@ from tensorflow.keras import layers
 from tensorflow import keras
 
 tf.keras.utils.set_random_seed(812)  # sets seeds for base-python, numpy and tf
-tf.config.experimental.enable_op_determinism()
-os.environ['TF_DETERMINISTIC_OPS'] = '1'
 
 pd.set_option("future.no_silent_downcasting", True)
 
@@ -48,12 +46,8 @@ class PSSPredictor:
                 Dense(len(self.secondary_letters), activation='softmax'))
         ])
 
-        model.compile(
-            optimizer=keras.optimizers.Adam(
-                learning_rate=0.051000000000000004),
-            loss="categorical_crossentropy",
-            metrics=["accuracy", "mae", q3_score],
-        )
+        model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=[
+                      'accuracy', 'mae', q3_score])
 
         return model
 
