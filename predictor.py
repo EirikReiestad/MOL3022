@@ -73,7 +73,7 @@ class PSSPredictor:
                 y_train,
                 epochs=epochs,
                 batch_size=batch_size,
-                # validation_split=validation_split,
+                validation_split=validation_split,
             )
             self.model.save("model.h5")
         else:
