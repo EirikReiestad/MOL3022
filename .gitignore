@@ -1,8 +1,9 @@
 # Byte-compiled / optimized / DLL files
-model.keras
+# model.keras
 __pycache__/
 *.py[cod]
 *$py.class
+tuning
 
 # C extensions
 *.so

@@ -3,7 +3,7 @@ import tensorflow.keras as keras
 from predictor import PSSPredictor
 
 
-def create_model_plot(model, filename="model.png", show=True):
+def create_model_plot(model, filename="images/model.png", show=True):
     """
     Create a plot of the model
     """

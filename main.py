@@ -1,13 +1,12 @@
 import customtkinter
 from util import read_protein_file, split_based_on_windows, ohe_for_nn, convert_pred_to_str, create_plot
 from predictor import PSSPredictor
+from model_plot import create_model_plot
 from PIL import Image
 import matplotlib.pyplot as plt
 
 
 if __name__ == "__main__":
-
-    ####### Preprocess data and train the neural network #######
 
     # Preprocess data
     train_seq, train_str = read_protein_file(
@@ -19,7 +18,6 @@ if __name__ == "__main__":
 
     train_df = split_based_on_windows(train_seq, train_str, WINDOW_SIZE)
     test_df = split_based_on_windows(test_seq, test_str, WINDOW_SIZE)
-    print(len(train_df), len(test_df))
 
     X_train, y_train = ohe_for_nn(train_df['sequence'], train_df['string'])
     X_test, y_test = ohe_for_nn(test_df['sequence'], test_df['string'])
@@ -28,9 +26,10 @@ if __name__ == "__main__":
     model = PSSPredictor(WINDOW_SIZE)
 
     # TODO: should we pretrain the model?
-    history = model.train(X_train, y_train, X_test, y_test, epochs=100)
+    history, loss, accuracy, mae, q3 = model.train(
+        X_train, y_train, X_test, y_test, epochs=20)
 
-    ####### CREATE GUI #######
+   ####### CREATE GUI #######
 
     def on_closing():
         app.withdraw()
@@ -120,13 +119,18 @@ if __name__ == "__main__":
     # Save training accuracy evolution as an image
     # Placed below tkinter image or else it crashes
     if history:
+        create_model_plot(model.model, filename="images/model.png", show=False)
+
+    if history:
         plt.figure()
         plt.plot(history.history['q3_score'])
         plt.plot(history.history['val_q3_score'])
+        plt.plot([q3]*len(history.history['q3_score']), 'g--')
         plt.title('q3 model accuracy')
         plt.ylabel('q3 score accuracy')
         plt.xlabel('epoch')
-        plt.legend(['train', 'val'], loc='upper left')
+        plt.legend(['train', 'val', 'test'], loc='upper left')
         plt.savefig('./images/train_accuracy.png')
+        plt.show()
 
     app.mainloop()
