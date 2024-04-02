@@ -18,7 +18,8 @@ loss: 0.8880 - accuracy: 0.5954 - mae: 0.3597 - q3_score: 0.5954
 
 
 ## Requirements
-The software was tested successfully with Python version >= 3.9.0.
+The recommended version of Python is 3.11.0.
+Other versions > 3.9.0 should work as well, but may not be supported by the requirements.txt file.
 
 There are no platform-specific requirements.
 
