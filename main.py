@@ -119,7 +119,9 @@ if __name__ == "__main__":
     # Save training accuracy evolution as an image
     # Placed below tkinter image or else it crashes
     if history:
-        create_model_plot(model.model, filename="images/model.png", show=False)
+        pass
+        # Uncomment the line below later:) It just crashes for some Python versions
+        # create_model_plot(model.model, filename="images/model.png", show=False)
 
     if history:
         plt.figure()
